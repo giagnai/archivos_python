@@ -10,6 +10,7 @@
 # Ejercicios con archivos
 
 import csv
+from types import DynamicClassAttribute
 
 
 def ej3():
@@ -27,7 +28,22 @@ def ej3():
     # para cumplir con el enunciado del ejercicio
 
     # Comenzar aquí, recuerde el identado dentro de esta funcion
-    
+
+    csvfile = open(archivo, 'r')
+    stock = list(csv.DictReader(csvfile))
+    tornillos_totales = 0
+
+    for i in range(len(stock)):
+            lista = stock[i]
+            for k, v in lista.items():
+                if k == 'tornillos':
+                    cant_tornillos = v
+                    cantidad = int(cant_tornillos)
+                    tornillos_totales += cantidad 
+        
+    print('Tornillos Totales: ', tornillos_totales)
+
+    csvfile.close()
 
 
 def ej4():
@@ -47,8 +63,32 @@ def ej4():
     # utilizando "try except", tema que se verá la clase que viene.
 
     # Comenzar aquí, recuerde el identado dentro de esta funcion
+    csvfile = open('propiedades.csv', 'r')
+    departamentos = list(csv.DictReader(csvfile))
+
+    dos_ambientes = 0
+    tres_ambientes = 0
+    sin_definir = 0
+
+    for i in range(len(departamentos)):
+        for k, v in departamentos[i].items():
+            if k == 'ambientes':
+                if v == '2':
+                    dos_ambientes += 1
+                
+                elif v == '3':
+                    tres_ambientes += 1
+
+                else:
+                    sin_definir += 1
+            
+    
+    print("Cantidad de departamentos de 2 ambientes: ", dos_ambientes)
+    print("Cantidad de departamentos de 3 ambientes: ", tres_ambientes)
+    print("Cantidad de departamentos restantes: ", sin_definir)
 
 
+    csvfile.close()
 if __name__ == '__main__':
     print("Bienvenidos a otra clase de Inove con Python")
     ej3()
